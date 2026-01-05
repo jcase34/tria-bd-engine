@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ninja_extra',
     'ninja_jwt',
     'users',
+    'corsheaders'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -53,6 +54,7 @@ AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # add before common middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,6 +63,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+CORS_URL_REGEX = r"^/api/.*$"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000", #django front-end
+    "http://localhost:3000", #next.js front-end
+
+]
 
 TEMPLATES = [
     {

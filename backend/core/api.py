@@ -2,7 +2,7 @@ from ninja_extra import NinjaExtraAPI
 from ninja_jwt.controller import NinjaJWTDefaultController
 from ninja_jwt.authentication import JWTAuth
 from ninja import Schema
-from users.api import router as users_router # Import your router
+from users.api import router as users_router
 
 api = NinjaExtraAPI()
 
@@ -15,6 +15,11 @@ class UserSchema(Schema):
     email: str
     first_name: str
     is_authenticated: bool
+
+@api.get("/hello")
+def hello(request):
+    print(request)
+    return {"message":"Hello world"}
 
 # 3. Create a Protected Route
 @api.get("/me", response=UserSchema, auth=JWTAuth())
