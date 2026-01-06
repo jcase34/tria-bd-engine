@@ -25,11 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-he2#0c%v-mnbs!ovzy#yl9sspl2^=vgwngcxil6-o^rp=6xu9e'
+load_dotenv(BASE_DIR / '.env') # <--- Add this
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Now pull the value
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ninja_extra',
     'ninja_jwt',
     'users',
+    'corsheaders'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -53,6 +54,7 @@ AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # add before common middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,6 +63,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+CORS_URL_REGEX = r"^/api/.*$"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000", #django front-end
+    "http://localhost:3000", #next.js front-end
+
+]
 
 TEMPLATES = [
     {

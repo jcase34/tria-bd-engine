@@ -12,15 +12,3 @@ scripts:
   
   # If you want to run your Django Ninja docs directly
   docs: open http://127.0.0.1:8000/api/docs
-
-  curl_auth: | 
-    curl \
-      -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"username": "admin", "password": "Engineer23"}' \
-      http://localhost:8000/api/token/pair
-
-  curl_protect: |
-    curl \
-    -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY3NTUzMTk2LCJpYXQiOjE3Njc1NTI4OTYsImp0aSI6IjcyMjk5OTFlMDdhYTQzMDM4N2I5OTU2YWVlNDM4MzY3IiwidXNlcl9pZCI6MX0.XU40kA2E5cpdg-mGxgRgSiBgV3Z51LEcOr6NW78yxjM" \
-    http://localhost:8000/api/me

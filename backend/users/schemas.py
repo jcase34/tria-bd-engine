@@ -1,9 +1,10 @@
 from ninja import ModelSchema, Schema
 from .models import User
+from pydantic import EmailStr
 
 # What the user sends during sign-up
 class RegisterIn(Schema):
-    email: str
+    email: EmailStr
     password: str
 
 # What the API returns
