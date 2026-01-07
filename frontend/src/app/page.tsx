@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function Home() {
   //setup for GET requests only (table loading, users table, leads ,etc)
@@ -11,16 +11,28 @@ export default function Home() {
   // if (error) return <div>failed to load</div>
   // if (isLoading) return <div>loading...</div>
 
-  const [data, setData] = useState({})
-  async function getDjangoAPIData() {
-    const response = await fetch("http://127.0.0.1:8000/api/hello");
-    const data = await response.json();
-    console.log(data);
-    setData(data)
+  const [data, setData] = useState({}) // if new data comes in, re-render using setData function
+
+  async function getDjangoAPIData() { //fetcher function, relates to getDjangoAPIData
+    const response = await fetch("http://127.0.0.1:8000/api/token/pair", {
+      method: "POST", //push data
+      headers: {"Content-Type" : "application/json" },
+      body: JSON.stringify({
+        email: "admin@example.com",
+        password: "learncode"
+      })
+      
+    }); // the actual fetch call, response is logged after it finishes (non-blocking)
+
+    
+    console.log(response) // log the response in the browswer, includes all header information, type, but the body content isn't provided (locked?)
+    const data = await response.json(); // Wait for the response to be received (non blocking) once it is, convert it to JSON (pulls the body out)
+    console.log(data); // log the json data in the browser console
+    setData(data) //set the data variable and re-render the data within the browswer
   }
 
-  async function handleClick() {
-    await getDjangoAPIData();
+  async function handleClick() { //a wrapper function for the djangoAPI data call - clarified function name for button
+    await getDjangoAPIData(); // because our whole call / response is asycn, we await all the operations on this function
   }
   
   return (
@@ -34,9 +46,11 @@ export default function Home() {
           height={20}
           priority
         />
-        <button onClick={handleClick}>
+        {/* this button below triggers the handleClick Method */}
+        <button onClick={handleClick}> 
           Lookup Data
         </button>
+        {/*  */}
         <div>
           {JSON.stringify(data)}
         </div>
