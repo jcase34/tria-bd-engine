@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
-import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
+// import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
 import { useState } from "react";
 import { ok } from "assert"
 import { useRouter } from "next/navigation"; // 2. Use useRouter instead of redirect
@@ -29,19 +29,20 @@ export function LoginForm({
    const router = useRouter();
     const [error, setError] = useState<string | null>(null);
   
-    async function handleTestLogin(formData: FormData) {
-      setError(null); // Reset error
-      const response = await loginAction(formData);
+    // //larger function, wrapping loginAction
+    // async function handleTestLogin(formData: FormData) {
+    //   setError(null); // Reset error
+    //   const response = await loginAction(formData);
 
-      if (response.success) {
-        // 3. The cookie is already set by the server action!
-        // We just need to tell the browser to go to the dashboard.
-        router.push("/dashboard");
-        router.refresh(); // Forces Next.js to re-check the cookies for the new page
-      } else {
-        setError(response.error || "Login failed");
-      }
-    }
+    //   if (response.success) {
+    //     // 3. The cookie is already set by the server action!
+    //     // We just need to tell the browser to go to the dashboard.
+    //     router.push("/dashboard");
+    //     router.refresh(); // Forces Next.js to re-check the cookies for the new page
+    //   } else {
+    //     setError(response.error || "Login failed");
+    //   }
+    // }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>

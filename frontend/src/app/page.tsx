@@ -1,5 +1,5 @@
 "use client"
-import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
+// import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
 import { useState } from "react";
 import { SWRConfig } from "swr";
 
@@ -10,25 +10,25 @@ import { SWRConfig } from "swr";
 //   // if (isLoading) return <div>loading...</div>
 
 export default function Home() {
-  const [result, setResult] = useState("");
+  // const [result, setResult] = useState("");
 
-  // This function connects your button click to the server action
-  async function handleTestLogin(formData: FormData) {
-    const response = await loginAction(formData);
+  // // This function connects your button click to the server action
+  // async function handleTestLogin(formData: FormData) {
+  //   const response = await loginAction(formData);
     
-    if (response.success) {
-      setResult("Success! Check your Browser Cookies tab.");
-    } else {
-      setResult("Error: " + response.error);
-    }
-  }
+  //   if (response.success) {
+  //     setResult("Success! Check your Browser Cookies tab.");
+  //   } else {
+  //     setResult("Error: " + response.error);
+  //   }
+  // }
 
   return (
     <div className="p-20 flex flex-col gap-4">
       <h1 className="text-xl font-bold">Test Login Action</h1>
       
       {/* Note: We use the 'action' attribute instead of 'onClick' */}
-      <form action={handleTestLogin} className="flex flex-col gap-2 max-w-sm">
+      <form className="flex flex-col gap-2 max-w-sm">
         <input 
           name="email" // This 'name' is what FormData looks for!
           type="email" 
@@ -49,7 +49,7 @@ export default function Home() {
       </form>
 
       <div className="mt-4 p-4 bg-gray-100 dark:text-black">
-        <strong>Status:</strong> {result}
+        <strong>Status:</strong>
       </div>
     </div>
   );

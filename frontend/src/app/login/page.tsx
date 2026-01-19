@@ -1,19 +1,47 @@
-import { GalleryVerticalEnd } from "lucide-react"
+"use client"
 
-import { LoginForm } from "@/components/login-form"
+import React from "react"
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
-  return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <a href="#" className="flex items-center gap-2 self-center font-medium">
-          <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <GalleryVerticalEnd className="size-4" />
-          </div>
-          Tria Business Development
-        </a>
-        <LoginForm />
-      </div>
+const LOGIN_URL = "/api/auth/login"
+
+export default function Page() {
+
+    const router = useRouter()
+
+    async function handleSubmit (event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget; 
+
+    const formData = new FormData(form);
+    const objectFromForm = Object.fromEntries(formData)
+    const jsonData = JSON.stringify(objectFromForm)
+
+    const reqOptions = {
+        method: "POST",
+        headers:  {
+            "Content-Type" : "application/json"
+        },
+        body: jsonData
+    }
+
+    const response = await fetch (LOGIN_URL, reqOptions)
+    const data = await response.json()
+    console.log(data)
+    if(response.ok) {
+        console.log("logged in")
+        console.log(data)
+        router.replace('/')
+    }
+}
+    return <div className="h-[95vh]">
+        <div className="max-w-md mx-auto py-5">
+            <h1> login here </h1>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="email" placeholder="Your email" />
+                    <input type="password" name="password" placeholder="Your password" />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
     </div>
-  )
 }

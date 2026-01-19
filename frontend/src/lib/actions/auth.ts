@@ -1,33 +1,64 @@
-"use server" // This tells Next.js: "Run this on the server, not the browser"
+"use server"
 
 import { cookies } from "next/headers"
 
-export async function loginAction(formData: FormData) {
-  const email = formData.get("email")
-  const password = formData.get("password")
 
-  // 1. The same fetch you just tested!
-  const response = await fetch("http://127.0.0.1:8000/api/token/pair", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  })
+const TOKEN_NAME = 'auth-token'
+const REFRESH_TOKEN_NAME = 'auth-refresh-token'
+const ACCESS_TOKEN_AGE = 3600 // 1 hour
+const REFRESH_TOKEN_AGE = 3600 * 24 * 7 // 7 days 
 
-  const data = await response.json()
+const getCookieOptions = (maxAge: number) => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  path: "/", 
+  maxAge: maxAge,
+})
 
-  if (response.ok) {
-    // 2. This is the new part: SAVING the key
-    const cookieStore = await cookies()
-    
-    // We save the Access token
-    cookieStore.set("access", data.access, {
-      httpOnly: true, // Secure! JavaScript can't read this
-      secure: process.env.NODE_ENV === "production",
-      path: "/", 
-    })
+/**
+ * GETTERS
+ */
+export async function getAccessToken() {
+  const cookieStore = await cookies()
+  return cookieStore.get(TOKEN_NAME)?.value
+}
 
-    return { success: true }
-  }
+export async function getRefreshToken() {
+  const cookieStore = await cookies()
+  return cookieStore.get(REFRESH_TOKEN_NAME)?.value
+}
 
-  return { success: false, error: data.detail }
+export async function getAccessRefreshTokens() {
+  const access = await getAccessToken()
+  const refresh = await getRefreshToken()
+  return [access, refresh]
+}
+
+/**
+ * SETTERS
+ */
+export async function setAccessToken(token: string) {
+  const cookieStore = await cookies()
+  return cookieStore.set(TOKEN_NAME, token, getCookieOptions(ACCESS_TOKEN_AGE))
+}
+
+export async function setRefreshToken(token: string) {
+  const cookieStore = await cookies()
+  return cookieStore.set(REFRESH_TOKEN_NAME, token, getCookieOptions(REFRESH_TOKEN_AGE))
+}
+
+export async function setAccessRefreshTokens(access: string, refresh: string) {
+  await setAccessToken(access)
+  await setRefreshToken(refresh)
+}
+
+/**
+ * DELETERS (Logout)
+ */
+export async function deleteAccessRefreshTokens() {
+  const cookieStore = await cookies()
+  cookieStore.delete(TOKEN_NAME)
+  return cookieStore.delete(REFRESH_TOKEN_NAME)
+
 }
