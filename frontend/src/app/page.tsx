@@ -1,56 +1,34 @@
-"use client"
-// import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
-import { useState } from "react";
-import { SWRConfig } from "swr";
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
-// export default function Home() {
-//   //setup for GET requests only (table loading, users table, leads ,etc)
-//   // const { data, error, isLoading } = useSWR(`http://127.0.0.1:8000/api/hello`, fetcher)
-//   // if (error) return <div>failed to load</div>
-//   // if (isLoading) return <div>loading...</div>
-
-export default function Home() {
-  // const [result, setResult] = useState("");
-
-  // // This function connects your button click to the server action
-  // async function handleTestLogin(formData: FormData) {
-  //   const response = await loginAction(formData);
-    
-  //   if (response.success) {
-  //     setResult("Success! Check your Browser Cookies tab.");
-  //   } else {
-  //     setResult("Error: " + response.error);
-  //   }
-  // }
-
+export default function HomePage() {
   return (
-    <div className="p-20 flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Test Login Action</h1>
-      
-      {/* Note: We use the 'action' attribute instead of 'onClick' */}
-      <form className="flex flex-col gap-2 max-w-sm">
-        <input 
-          name="email" // This 'name' is what FormData looks for!
-          type="email" 
-          placeholder="admin@example.com" 
-          className="border p-2 text-black"
-          required 
-        />
-        <input 
-          name="password" 
-          type="password" 
-          placeholder="password" 
-          className="border p-2 text-black"
-          required 
-        />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Run Login Action
-        </button>
-      </form>
-
-      <div className="mt-4 p-4 bg-gray-100 dark:text-black">
-        <strong>Status:</strong>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-background p-6">
+      <div className="z-10 w-full max-w-3xl items-center justify-between text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-4">
+          Tria Business Development
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8">
+          The central hub for managing leads, opportunities, and analytics.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button asChild size="lg" className="px-8">
+            <Link href="/login">
+              Access Dashboard
+            </Link>
+          </Button>
+          
+          <Button variant="outline" size="lg" asChild>
+            <Link href="mailto:support@tria-bd.com">
+              Contact Support
+            </Link>
+          </Button>
+        </div>
       </div>
-    </div>
-  );
+
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+    </main>
+  )
 }

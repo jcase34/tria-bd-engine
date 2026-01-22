@@ -15,35 +15,44 @@ import {
   FieldLabel,
   FieldSeparator,
 } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
 
-// import { loginAction } from "@/lib/actions/auth"; // Import the function we wrote
-import { useState } from "react";
-import { ok } from "assert"
+import { Input } from "@/components/ui/input"
+import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // 2. Use useRouter instead of redirect
+
+const LOGIN_URL = "/api/auth/login"
+
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-   const router = useRouter();
-    const [error, setError] = useState<string | null>(null);
+
+  //Mode code started here
+  const router = useRouter()
+
+  async function handleLoginSubmit(formData: FormData) {
+    const objectFromForm = Object.fromEntries(formData)
+    const jsonData = JSON.stringify(objectFromForm)
+
+    const requestOptions = {
+        method: "POST",
+        headers:  {
+            "Content-Type" : "application/json"
+        },
+        body: jsonData
+    }
+
+    const response = await fetch(LOGIN_URL, requestOptions) 
+    
+    if (response.ok) {
+        router.push("/dashboard")
+        router.refresh() // Ensures the layout updates to show "Logged In" status
+    } else {
+        console.error("Login failed")
+    }
+  }
   
-    // //larger function, wrapping loginAction
-    // async function handleTestLogin(formData: FormData) {
-    //   setError(null); // Reset error
-    //   const response = await loginAction(formData);
-
-    //   if (response.success) {
-    //     // 3. The cookie is already set by the server action!
-    //     // We just need to tell the browser to go to the dashboard.
-    //     router.push("/dashboard");
-    //     router.refresh(); // Forces Next.js to re-check the cookies for the new page
-    //   } else {
-    //     setError(response.error || "Login failed");
-    //   }
-    // }
-
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -51,7 +60,7 @@ export function LoginForm({
           <CardTitle className="text-xl">Welcome back</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={handleTestLogin}>
+          <form action={handleLoginSubmit}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
