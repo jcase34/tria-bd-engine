@@ -1,7 +1,11 @@
+import { ProductRuleTable } from "@/components/dashboard/product-rule-table";
+
 // src/app/dashboard/products/page.tsx
 export default function ProductsPage() {
   return (
     <div>
+      
+<div className="mt-4">
       <h2 className="text-2xl font-bold mb-4">Product Categories</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Placeholder Cards for now */}
@@ -25,6 +29,7 @@ export default function ProductsPage() {
           <h3 className="font-bold">COM-HPC</h3>
           <p className="text-sm text-muted-foreground">COM-HPC</p>
         </div>
+      </div>
       </div>
     </div>
   )

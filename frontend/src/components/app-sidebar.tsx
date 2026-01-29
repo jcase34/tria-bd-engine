@@ -37,6 +37,10 @@ const data = {
       url: "#",
       items: [
         {
+          title: "Guidelines & Order Info",
+          url: "/dashboard/products/guidelines",
+        },
+        {
           title: "All Products",
           url: "/dashboard/products",
         },
@@ -70,11 +74,24 @@ const data = {
           title: "Current Opportunities",
           url: "#",
         },
+      ],
+    },
+    {
+      title: "Leads",
+      url: "#",
+      items: [
         {
-          title: "Leads",
+          title: "Create New Lead",
           url: "#",
         },
-        
+        {
+          title: "Lead Table",
+          url: "#",
+        },
+        {
+          title: "Lead Analyticss",
+          url: "#",
+        },
       ],
     },
     {

@@ -21,9 +21,6 @@ import { useEffect } from "react"
 import { json } from "stream/consumers"
 import useSWR from "swr"
 
-import { SectionCards } from "@/components/dashboard/section-cards"
-import { BarChartCards } from "@/components/dashboard/bar-chart-cards"
-
 const fetcher = async (url: string) => {
   const res = await fetch(url)
 
@@ -59,18 +56,22 @@ export default function Page() {
   if (isLoading) return <div>Loading</div>
 
   return (
-<div className="flex flex-col gap-8 p-6 lg:p-10 @container/main">
-      <header>
-        <h1 className="text-3xl font-bold tracking-tight capitalize">
-          Welcome back {auth.userEmail}
-        </h1>
-        <p className="text-muted-foreground text-lg">
-          Tria BD Engine Performance Metrics.
-        </p>
-      </header>
-
-      <SectionCards />
-      <BarChartCards />
-    </div>
+<div>
+        <div className="flex flex-1 flex-col gap-4 p-4">
+          <h1>dashboard / analytics</h1>
+          <div>
+            test
+          </div>
+          <div>
+            {JSON.stringify(data)}
+          </div>
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+          </div>
+          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+        </div>
+        </div>
   )
 }
