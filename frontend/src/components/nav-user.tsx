@@ -29,10 +29,13 @@ import {
 } from "@/components/ui/sidebar"
 // import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
+import { useAuth } from "./auth/auth-provider"
+import { init } from "next/dist/compiled/webpack/webpack"
 
 const LOGOUT_URL = "/api/auth/logout"
 
 export function NavUser() {
+  const auth = useAuth()
   const { isMobile } = useSidebar()
 //   const auth = useAuth()
   const router = useRouter()
@@ -48,6 +51,9 @@ export function NavUser() {
       }
     }
 
+// 1. Get the email or default to empty string
+  const email = auth.userEmail
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -59,12 +65,11 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarFallback className="rounded-lg">
-                  {/* {auth.user?.username?.slice(0, 2).toUpperCase() || "BD"} */}
-                 {"BD"}
+                  {"BD"}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{"User here"}</span>
+                <span className="truncate font-semibold">{email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -79,11 +84,11 @@ export function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarFallback className="rounded-lg">
-                    {"Name"}
+                    {"BD"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{"BD Email"}</span>
+                  <span className="truncate font-semibold">{auth.userEmail}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

@@ -18,7 +18,8 @@ import {
 
 import { Input } from "@/components/ui/input"
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // 2. Use useRouter instead of redirect
+// import { useRouter } from "next/navigation"; // 2. Use useRouter instead of redirect
+import { useAuth } from "./auth/auth-provider"
 
 const LOGIN_URL = "/api/auth/login"
 
@@ -29,9 +30,11 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
   //Mode code started here
-  const router = useRouter()
+  const auth = useAuth()
+  // const router = useRouter() // bcause we are updating the authprovider and login redirects
 
   async function handleLoginSubmit(formData: FormData) {
+    const email = formData.get("email") as string;
     const objectFromForm = Object.fromEntries(formData)
     const jsonData = JSON.stringify(objectFromForm)
 
@@ -46,8 +49,9 @@ export function LoginForm({
     const response = await fetch(LOGIN_URL, requestOptions) 
     
     if (response.ok) {
-        router.push("/dashboard")
-        router.refresh() // Ensures the layout updates to show "Logged In" status
+        auth.login(email)
+        // router.push("/dashboard")
+        // router.refresh() // Ensures the layout updates to show "Logged In" status
     } else {
         console.error("Login failed")
     }

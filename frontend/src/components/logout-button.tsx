@@ -1,25 +1,29 @@
 "use client"
 
 import { LogOut } from "lucide-react" // Shadcn uses Lucide icons by default
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useAuth } from "./auth/auth-provider"
 
 const LOGOUT_URL = "/api/auth/logout"
 
 export function LogoutButton() {
-  const router = useRouter()
+  const auth = useAuth()
+  // const router = useRouter() // use redirects from auth
   
       async function handleClick () {
       const requestOptions = {method: "POST"}
   
       const response = await fetch (LOGOUT_URL, requestOptions)
       if(response.ok) {
+          auth.logout()
           console.log("logged out")
-          router.replace("/login")
+
+          // router.replace("/login")
   
       }
     }

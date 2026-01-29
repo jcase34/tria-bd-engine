@@ -1,5 +1,5 @@
 import * as React from "react"
-
+import { GalleryVerticalEnd } from "lucide-react"
 import { SearchForm } from "@/components/search-form"
 import { VersionSwitcher } from "@/components/version-switcher"
 import {
@@ -23,35 +23,66 @@ const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Tria Business Development",
+      title: "Home",
       url: "#",
       items: [
         {
-          title: "Home",
+          title: "Dashboard",
           url: "/dashboard",
         },
+      ]
+    },
+    {
+      title: "Product PriceBook & Modules",
+      url: "#",
+      items: [
         {
-          title: "Products",
+          title: "All Products",
           url: "/dashboard/products",
+        },
+        {
+          title: "SMARC",
+          url: "/dashboard/products/smarc",
+        },
+        {
+          title: "QSeven",
+          url: "/dashboard/products/qseven",
+        },
+        {
+          title: "OSM",
+          url: "/dashboard/products/osm",
+        },
+        {
+          title: "COM-Express",
+          url: "/dashboard/products/com-express",
+        },
+        {
+          title: "COM-HPC",
+          url: "/dashboard/products/com-hpc",
+        },
+      ],
+    },
+     {
+      title: "Opportunities",
+      url: "#",
+      items: [
+        {
+          title: "Current Opportunities",
+          url: "#",
         },
         {
           title: "Leads",
           url: "#",
         },
+        
+      ],
+    },
+    {
+      title: "Product Management",
+      url: "#",
+      items: [
         {
-          title: "Opportunities",
-          url: "#",
-        },
-        {
-          title: "Documents",
-          url: "#",
-        },
-        {
-          title: "Users",
-          url: "#",
-        },
-        {
-          title: "Analytics",
+          title: "Create New Product",
           url: "#",
         },
       ],
@@ -90,6 +121,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           defaultVersion={data.versions[0]}
         /> */}
         {/* <SearchForm /> */}
+        <div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-medium">Tria Business Development</span>
+                </div>
+                </div>
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}

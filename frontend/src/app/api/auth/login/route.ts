@@ -1,5 +1,3 @@
-"use server"
-
 import { NextResponse } from 'next/server'
 import { setAccessToken, setRefreshToken } from '@/lib/actions/auth'
 
@@ -23,8 +21,8 @@ export async function POST(request: Request) {
     if(response.ok) {
         const {access, refresh} = responseData
         //access & refresh are specific fields for django
-        setAccessToken(access)
-        setRefreshToken(refresh)
+        await setAccessToken(access)
+        await setRefreshToken(refresh)
         return NextResponse.json({"LoggedIn": true}, {status: 200})
     }
 

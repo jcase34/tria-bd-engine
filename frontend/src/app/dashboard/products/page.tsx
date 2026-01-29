@@ -7,11 +7,23 @@ export default function ProductsPage() {
         {/* Placeholder Cards for now */}
         <div className="p-6 border rounded-xl hover:shadow-lg transition-all cursor-pointer">
           <h3 className="font-bold">SMARC</h3>
-          <p className="text-sm text-muted-foreground">Smart Mobility ARChitecture</p>
+          <p className="text-sm text-muted-foreground">SMARC (SM2S) Modules</p>
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-all cursor-pointer">
           <h3 className="font-bold">Qseven</h3>
-          <p className="text-sm text-muted-foreground">Legacy COM Modules</p>
+          <p className="text-sm text-muted-foreground">QSeven Modules</p>
+        </div>
+                <div className="p-6 border rounded-xl hover:shadow-lg transition-all cursor-pointer">
+          <h3 className="font-bold">OSM</h3>
+          <p className="text-sm text-muted-foreground">OSM91, OSM93, OSM95</p>
+        </div>
+                <div className="p-6 border rounded-xl hover:shadow-lg transition-all cursor-pointer">
+          <h3 className="font-bold">COM-Expres</h3>
+          <p className="text-sm text-muted-foreground">COM-Express - C6, C10</p>
+        </div>
+                <div className="p-6 border rounded-xl hover:shadow-lg transition-all cursor-pointer">
+          <h3 className="font-bold">COM-HPC</h3>
+          <p className="text-sm text-muted-foreground">COM-HPC</p>
         </div>
       </div>
     </div>
