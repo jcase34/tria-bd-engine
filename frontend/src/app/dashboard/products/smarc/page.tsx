@@ -3,10 +3,12 @@
 import useSWR from "swr"
 import { columns } from "./columns"
 import { DataTable } from "@/components/ui/data-table"
+import { getAccessToken } from "@/lib/actions/auth"
 
 // Fetcher that includes the JWT token
 const fetcher = async (url: string) => {
-  const token = localStorage.getItem("access_token")
+
+  const token = await getAccessToken()
   
   const res = await fetch(url, {
     method: "GET",
@@ -36,7 +38,7 @@ export default function SmarcPage() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">SMARC Product Rules</h2>
           <p className="text-muted-foreground">
-            Manage VPE, MOQ, and technical specifications for SMARC modules.
+            MOQ = 120pcs, Pack Size = 60pcs
           </p>
         </div>
       </div>

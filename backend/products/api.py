@@ -8,7 +8,7 @@ from ninja_jwt.authentication import JWTAuth
 router = Router()
 
 # The path is now just "/smarc" because it will be prefixed by the core API
-@router.get("/smarc", response=List[ProductSchema])
+@router.get("/smarc", response=List[ProductSchema], auth=JWTAuth())
 def list_smarc_products(request):
     # We only want products where category is SMARC
     qs = Product.objects.filter(category="SMARC")
