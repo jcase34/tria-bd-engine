@@ -3,12 +3,15 @@ from ninja_jwt.controller import NinjaJWTDefaultController
 from ninja_jwt.authentication import JWTAuth
 from ninja import Schema
 from users.api import router as users_router
+from products.api import router as products_router # Import your new router
 
 api = NinjaExtraAPI()
 
 # 1. Setup the Login/Refresh Endpoints
 api.register_controllers(NinjaJWTDefaultController)
 api.add_router("/users", users_router)
+# This makes the final URL: /api/products/smarc
+api.add_router("/products", products_router)
 
 # 2. Define what data we want to show
 class UserSchema(Schema):

@@ -1,22 +1,19 @@
 from django.db import models
 
-# Create your models here.
+class Product(models.Model):
+    category = models.CharField(max_length=50, default="SMARC")
+    part_name = models.CharField(max_length=255)
+    part_number = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    
+    # Store only the whole number (e.g., 4, 8, 16)
+    memory_gb = models.IntegerField(help_text="Enter value in GB (e.g., 4)", default=0 )
+    storage_gb = models.IntegerField(help_text="Enter value in GB (e.g., 32)", default=0)
+    
+    design_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    resale_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    eccn_code = models.CharField(max_length=20, blank=True)
+    hs_code = models.CharField(max_length=20, blank=True)
 
-'''
-model should have - part number, part name, description, etc all from the csv header files
-need to find a way to provide simple parsing for tabulated contents and ability to adjust the price book details
-'''
-
-
-
-
-
-# TO DO
-'''
--Do this step first. Get a few products in a simple database in Neon
--Connect back-end to the table (django -> NEON -> Django)
--Setup a query after clicking a product group to load (SMARC only)
--After page load, display table 
-
-So page load will prompt the API call, then front end will render the content in a table. 
-'''
+    def __str__(self):
+        return f"{self.part_number} ({self.memory_gb}GB/{self.storage_gb}GB)"
